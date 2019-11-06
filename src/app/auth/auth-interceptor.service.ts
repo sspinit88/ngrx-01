@@ -17,6 +17,7 @@ export class AuthInterceptorService implements HttpInterceptor {
     return this.authService.user.pipe(
       take(1),
       exhaustMap(user => {
+        console.log('File: auth-interceptor.service.ts, Line - 20, user:', user);
         if (!user) {
           return next.handle(req);
         }
