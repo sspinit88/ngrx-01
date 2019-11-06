@@ -1,5 +1,6 @@
-import { Ingredient } from '../shared/ingredient.model';
 import { Action } from '@ngrx/store';
+import { Ingredient } from '../shared/ingredient.model';
+import { ADD_INGREDIENT } from './shopping-list.actions';
 
 const
   initialState = {
@@ -12,7 +13,7 @@ const
 export function shoppingListReducer(state = initialState, action: Action) {
 
   switch (action.type) {
-    case 'ADD_INGREDIENT':
+    case ADD_INGREDIENT:
       //// todo нкльзя редактировать существующее или предыдущее состояние. Возвращаем новый объект
       return {
         ...state, // копируем все старые состояния (добавляем к новому объекту)
