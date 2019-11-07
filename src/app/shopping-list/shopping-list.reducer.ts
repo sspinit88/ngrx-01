@@ -9,11 +9,13 @@ const
     ]
   };
 
-export function shoppingListReducer(state = initialState, action: ShoppingListActions.AddIngredient) {
-  // console.log('File: shopping-list.reducer.ts, Line - 13, action', action);
+export function shoppingListReducer(
+  state = initialState,
+  action: ShoppingListActions.ShoppingListActions) {
+
   switch (action.type) {
     case ShoppingListActions.ADD_INGREDIENT:
-      //// todo нкльзя редактировать существующее или предыдущее состояние. Возвращаем новый объект
+//// todo нкльзя редактировать существующее или предыдущее состояние. Возвращаем новый объект
       return {
         ...state, // копируем все старые состояния (добавляем к новому объекту)
         ingredients: [
@@ -21,7 +23,17 @@ export function shoppingListReducer(state = initialState, action: ShoppingListAc
           action.payload,
         ]
       };
+    case ShoppingListActions.ADD_INGREDIENTS:
+      return {
+        ...state,
+        ingridients: [
+          ...state.ingredients,
+          ...action.payload,
+        ]
+      };
     default:
       return state;
   }
 }
+
+
