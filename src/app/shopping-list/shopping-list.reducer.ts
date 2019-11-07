@@ -10,7 +10,7 @@ const
   };
 
 export function shoppingListReducer(state = initialState, action: ShoppingListActions.AddIngredient) {
-
+  console.log('File: shopping-list.reducer.ts, Line - 13, action', action);
   switch (action.type) {
     case ShoppingListActions.ADD_INGREDIENT:
       //// todo нкльзя редактировать существующее или предыдущее состояние. Возвращаем новый объект
