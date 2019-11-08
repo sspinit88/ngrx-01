@@ -6,7 +6,9 @@ const
     ingredients: [
       new Ingredient('Apples', 5),
       new Ingredient('Tomatoes', 10),
-    ]
+    ],
+    editedIngredient: null,
+    editedIngredient: -1,
   };
 
 export function shoppingListReducer(
@@ -26,10 +28,40 @@ export function shoppingListReducer(
     case ShoppingListActions.ADD_INGREDIENTS:
       return {
         ...state,
-        ingridients: [
+        ingredients: [
           ...state.ingredients,
           ...action.payload,
         ]
+      };
+    case ShoppingListActions.UpdateIngredient:
+      //// берем ингредиент по переданному индексу
+      const
+        ingredient = state.ingredients[action.payload];
+      const
+        updatedIngredient = {
+          //// копирую старые ингредиенты
+          ...ingredient,
+          //// записываем то, что нужно изменить
+          ...action.payload.ingredient,
+        };
+      //// получаем новый массив
+      const
+        updatedIngredients = [
+          ...state.ingredients,
+        ];
+      //// меняем позицию по указанному индексу
+      updatedIngredients[action.payload.index] = updatedIngredient;
+
+      return {
+        ...state,
+        ingredients: updatedIngredients,
+      };
+    case ShoppingListActions.DeleteIngredient:
+      return {
+        ...state,
+        ingredients: state.ingredients.filter((ig, igIndex) => {
+          return igIndex != action.payload;
+        }),
       };
     default:
       return state;
