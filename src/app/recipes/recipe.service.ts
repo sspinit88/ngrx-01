@@ -6,7 +6,7 @@ import { Ingredient } from '../shared/ingredient.model';
 import { ShoppingListService } from '../shopping-list/shopping-list.service';
 
 import { Store } from '@ngrx/store';
-import * as ShoppingListActions from '../shopping-list/shopping-list.actions';
+import * as ShoppingListActions from '../store/shopping-list.actions';
 
 @Injectable()
 export class RecipeService {

@@ -11,7 +11,8 @@ import { Ingredient } from '../../shared/ingredient.model';
 import { ShoppingListService } from '../shopping-list.service';
 
 import { Store } from '@ngrx/store';
-import * as ShoppingListActions from '../shopping-list.actions';
+import * as ShoppingListActions from '../../store/shopping-list.actions';
+import * as fromShoppingList from '../../store/shopping-list.reducer';
 
 @Component({
   selector: 'app-shopping-edit',
@@ -28,7 +29,8 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
   constructor(
     private slService: ShoppingListService,
     //// todo store
-    private store: Store<{ shoppingList: { ingredients: Ingredient[] } }>,
+    // private store: Store<{ shoppingList: { ingredients: Ingredient[] } }>,
+    private store: Store<fromShoppingList.AppState>,
   ) {
   }
 
@@ -50,8 +52,8 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
   onSubmit(form: NgForm) {
     const value = form.value;
     const newIngredient = new Ingredient(value.name, +value.amount);
-    if (this.editMode) {
 
+    if (this.editMode) {
       this.store.dispatch(new ShoppingListActions.UpdateIngredient({ index: this.editedItemIndex, ingredient: newIngredient }));
     } else {
       //// todo store отправка данных

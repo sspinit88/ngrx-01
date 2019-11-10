@@ -1,6 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
+
 import { Store, StoreModule } from '@ngrx/store';
+import * as fromShoppingList from '../store/shopping-list.reducer';
 
 import { Ingredient } from '../shared/ingredient.model';
 import { ShoppingListService } from './shopping-list.service';
@@ -21,7 +23,8 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
     private slService: ShoppingListService,
     private loggingService: LoggingService,
     //// todo shoppingList - соответствует полю в StoreModule.forRoot({...
-    private store: Store<{ shoppingList: { ingredients: Ingredient[] } }>,
+    // private store: Store<{ shoppingList: { ingredients: Ingredient[] } }>,
+    private store: Store<fromShoppingList.AppState>,
   ) {
   }
 
