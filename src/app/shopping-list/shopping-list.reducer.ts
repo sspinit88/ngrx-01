@@ -4,11 +4,11 @@ import * as ShoppingListActions from './shopping-list.actions';
 const
   initialState = {
     ingredients: [
-      new Ingredient('Apples', 5),
+      new Ingredient('Apples', 15),
       new Ingredient('Tomatoes', 10),
     ],
     editedIngredient: null,
-    editedIngredient: -1,
+    editedIngredientIndex: -1,
   };
 
 export function shoppingListReducer(
@@ -17,7 +17,7 @@ export function shoppingListReducer(
 
   switch (action.type) {
     case ShoppingListActions.ADD_INGREDIENT:
-//// todo нкльзя редактировать существующее или предыдущее состояние. Возвращаем новый объект
+//// todo нельзя редактировать существующее или предыдущее состояние. Возвращаем новый объект
       return {
         ...state, // копируем все старые состояния (добавляем к новому объекту)
         ingredients: [
@@ -27,10 +27,10 @@ export function shoppingListReducer(
       };
     case ShoppingListActions.ADD_INGREDIENTS:
       return {
-        ...state,
+        ...state, //// сохраняю старое состояние
         ingredients: [
-          ...state.ingredients,
-          ...action.payload,
+          ...state.ingredients, //// сохраняю все старые ингредиенты
+          ...action.payload, //// сохраняю новые ингредиенты
         ]
       };
     case ShoppingListActions.UpdateIngredient:

@@ -27,6 +27,7 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
 
   constructor(
     private slService: ShoppingListService,
+    //// todo store
     private store: Store<{ shoppingList: { ingredients: Ingredient[] } }>,
   ) {
   }
@@ -48,13 +49,12 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
 
   onSubmit(form: NgForm) {
     const value = form.value;
-    const newIngredient = new Ingredient(value.name, value.amount);
+    const newIngredient = new Ingredient(value.name, +value.amount);
     if (this.editMode) {
-      // this.slService.updateIngredient(this.editedItemIndex, newIngredient);
+
       this.store.dispatch(new ShoppingListActions.UpdateIngredient({ index: this.editedItemIndex, ingredient: newIngredient }));
     } else {
-      // this.slService.addIngredient(newIngredient);
-      //// todo отправка данных
+      //// todo store отправка данных
       this.store.dispatch(new ShoppingListActions.AddIngredient(newIngredient));
     }
     this.editMode = false;
