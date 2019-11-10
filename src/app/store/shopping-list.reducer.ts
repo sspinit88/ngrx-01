@@ -47,7 +47,7 @@ export function shoppingListReducer(
     case ShoppingListActions.UPDATE_INGREDIENT:
       //// берем ингредиент по переданному индексу
       const
-        ingredient = state.ingredients[action.payload.index];
+        ingredient = state.ingredients[state.editedIngredientIndex];
       const
         updatedIngredient = {
           //// копирую старые ингредиенты
@@ -61,18 +61,32 @@ export function shoppingListReducer(
           ...state.ingredients,
         ];
       //// меняем позицию по указанному индексу
-      updatedIngredients[action.payload.index] = updatedIngredient;
+      updatedIngredients[state.editedIngredientIndex] = updatedIngredient;
 
       return {
         ...state,
         ingredients: updatedIngredients,
+        editedIngredientIndex: -1,
+        editedIngredient: null,
       };
     case ShoppingListActions.DELETE_INGREDIENT:
       return {
         ...state,
         ingredients: state.ingredients.filter((ig, igIndex) => {
-          return igIndex !== action.payload.index;
+          return igIndex !== state.editedIngredientIndex;
         }),
+      };
+    case ShoppingListActions.START_EDIT:
+      return {
+        ...state,
+        editedIngredientIndex: action.payload,
+        editedIngredient: { ...state.ingredients[action.payload] },
+      };
+    case ShoppingListActions.STOP_EDIT:
+      return {
+        ...state,
+        editedIngredient: null,
+        editedIngredientIndex: -1,
       };
     default:
       return state;
