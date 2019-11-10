@@ -33,10 +33,10 @@ export function shoppingListReducer(
           ...action.payload, //// сохраняю новые ингредиенты
         ]
       };
-    case ShoppingListActions.UpdateIngredient:
+    case ShoppingListActions.UPDATE_INGREDIENT:
       //// берем ингредиент по переданному индексу
       const
-        ingredient = state.ingredients[action.payload];
+        ingredient = state.ingredients[action.payload.index];
       const
         updatedIngredient = {
           //// копирую старые ингредиенты
@@ -56,11 +56,11 @@ export function shoppingListReducer(
         ...state,
         ingredients: updatedIngredients,
       };
-    case ShoppingListActions.DeleteIngredient:
+    case ShoppingListActions.DELETE_INGREDIENT:
       return {
         ...state,
         ingredients: state.ingredients.filter((ig, igIndex) => {
-          return igIndex != action.payload;
+          return igIndex !== action.payload;
         }),
       };
     default:
